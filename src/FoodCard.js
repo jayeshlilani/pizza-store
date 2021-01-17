@@ -240,7 +240,7 @@ export default class FoodCard extends React.Component {
                                                                  className="def-number-input number-input safari_only mb-0 w-100">
                                                                 <button className="btnPlus plus"
                                                                         onClick={(event) => this.changeQuantity("plus")}
-                                                                        disabled={item.quantity >= 10}>+
+                                                                        disabled={this.state.quantity >= 10}>+
                                                                 </button>
                                                                 <input className="quantity" min="1"
                                                                        name="quantity"
@@ -250,7 +250,7 @@ export default class FoodCard extends React.Component {
                                                                        type="number"/>
                                                                 <button className="btnMinus minus"
                                                                         onClick={(event) => this.changeQuantity("minus")}
-                                                                        disabled={item.quantity <= 1}>-
+                                                                        disabled={this.state.quantity <= 1}>-
                                                                 </button>
                                                             </div>
                                                         </div>
