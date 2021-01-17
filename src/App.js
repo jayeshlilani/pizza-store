@@ -1,7 +1,7 @@
 import './App.css';
 import * as React from "react";
-import FoodCard from "./FoodCard";
-import Cart from "./Cart";
+import FoodCard from "./components/FoodCard/FoodCard";
+import Cart from "./components/Cart/Cart";
 
 export default class App extends React.Component {
     constructor(props) {
