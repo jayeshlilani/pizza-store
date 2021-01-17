@@ -1,0 +1,44 @@
+
+
+.root{
+    max-width: 1000px;
+}
+.media {
+    height: 0;
+    padding-top: 56.25%;
+}
+/*expand: {*/
+/*transform: 'rotate(0deg)',*/
+/*marginLeft: 'auto',*/
+/*transition: theme.transitions.create('transform', {*/
+/*    duration: theme.transitions.duration.shortest,*/
+/*})*/
+/*}*/
+/*.expandOpen {*/
+/*    transform: 'rotate(180deg)',*/
+/*}*/
+.avatar {
+    background-color: red;
+}
+.modal-backdrop {
+    width: 0;
+}
+.modal-dialog .modal-content {
+    box-shadow: 0 1px 11px 0 rgba(9,9,9,0.01), 0 1px 11px 0 rgba(5,5,5,0.05);
+}
+multiselectContainer{
+    margin-top: 20px;
+}
+
+.quantity{
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 8px;
+    min-height: 22px;
+    position: relative;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #4285f4 !important;
+    padding: 6px 25px;
+}
