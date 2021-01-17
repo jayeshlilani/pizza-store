@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card,CardHeader,CardMedia,CardContent,CardActions,IconButton,Typography } from '@material-ui/core'
+import {Card, CardHeader, CardMedia, CardContent, CardActions, IconButton, Typography} from '@material-ui/core'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
@@ -40,28 +40,22 @@ export default class FoodCard extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state.myCart)
     }
 
     onSelectFilter(selectedList, selectedItem) {
-        console.log(selectedItem.name)
         this.setState({selectedValue: selectedItem.name})
     }
 
     onRemoveFilter(selectedList, removedItem) {
-        console.log(removedItem.name)
         this.setState({selectedValue: 'none'})
     }
 
     onSelectSort(selectedList, selectedItem) {
-        console.log(selectedItem.name)
         this.setState({sortByValue: selectedItem.name})
         this.sortArray(selectedItem.name)
     }
 
     onRemoveSort(selectedList, removedItem) {
-        console.log(removedItem.name)
-        console.log(this.state.foodMenuOriginal)
         this.sortArray('id')
         this.setState({sortByValue: 'none'})
     }
@@ -76,18 +70,14 @@ export default class FoodCard extends React.Component {
     };
 
     onSelectSize(selectedList, selectedItem) {
-        console.log(selectedItem.size)
         this.setState({selectedSize: selectedItem.size})
     }
 
     onRemoveSize(selectedList, removedItem) {
-        console.log(removedItem.size)
         this.setState({selectedSize: 'none'})
     }
 
     onSelectToppings(selectedList, selectedItem) {
-        console.log(selectedItem)
-        console.log(selectedList)
         this.setState({selectedToppings: selectedList})
     }
 
@@ -95,14 +85,18 @@ export default class FoodCard extends React.Component {
         this.setState({selectedToppings: []})
     }
 
-    changeQuantity(event) {
-        console.log(event.target.value)
-        this.setState({quantity: event.target.value})
+    changeQuantity(type) {
+        let quantity = this.state.quantity
+        if (type === "plus") {
+            quantity = parseInt(quantity) + 1
+        } else {
+            quantity = parseInt(quantity) - 1
+        }
+        this.setState({quantity: quantity})
     }
 
 
     AddToCart(item) {
-        console.log(item)
         const myItem = {
             id: item.id,
             name: item.name,
@@ -110,29 +104,27 @@ export default class FoodCard extends React.Component {
             description: item.description,
             isVeg: item.isVeg,
             size: this.state.selectedSize,
-            toppings: this.state.selectedToppings.length < 1 ? [{name:'none'}] : this.state.selectedToppings,
+            toppings: this.state.selectedToppings.length < 1 ? [{name: 'none'}] : this.state.selectedToppings,
             quantity: this.state.quantity
         }
-        var cart = this.state.myCart
+        let cart = this.state.myCart
         cart.push(myItem)
-        console.log(cart)
         this.setState({myCart: cart, customPopup: false})
         sessionStorage.setItem('cart', JSON.stringify(this.state.myCart));
-        console.log(this.state.myCart)
+        this.props.action()
     }
 
     render() {
 
         const {foodMenu, options, sortOptions, selectedValue, data, customPopup, currentItem} = this.state;
         const handleShow = (item) => {
-            console.log(item)
             this.setState({quantity: 1, currentItem: item, customPopup: true})
         }
         const handleClose = () => this.setState({customPopup: false})
         return (
-            <div className="container" style={{marginTop: 100}}>
+            <div className="container" style={{marginTop: 80}}>
                 <div className="row mb-3">
-                    <div className="col-md-6">
+                    <div className="col-md-6 mt-2">
                         <Multiselect
                             id={"filterId"}
                             showCheckbox={true}
@@ -145,7 +137,7 @@ export default class FoodCard extends React.Component {
                             displayValue="name" // Property name to display in the dropdown options
                         />
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6 mt-2">
                         <Multiselect
                             id={"sortId"}
                             showCheckbox={true}
@@ -217,7 +209,7 @@ export default class FoodCard extends React.Component {
                                                 </Modal.Header>
                                                 <Modal.Body>
                                                     <div className="row">
-                                                        <div className="col-md-4">
+                                                        <div className="col-md-4 mt-2">
                                                             <Multiselect
                                                                 id={item.id + "1"}
                                                                 showCheckbox={true}
@@ -230,7 +222,7 @@ export default class FoodCard extends React.Component {
                                                                 displayValue="size" // Property name to display in the dropdown options
                                                             />
                                                         </div>
-                                                        <div className="col-md-6">
+                                                        <div className="col-md-6 mt-2">
                                                             <Multiselect
                                                                 id={item.id + "2"}
                                                                 style={{marginTop: 10}}
@@ -244,12 +236,23 @@ export default class FoodCard extends React.Component {
                                                             />
                                                         </div>
                                                         <div className="col-md-2">
-                                                             <span aria-label="add to favorites">
-                                                        <input type="number" min={1} max={10} step={1}
-                                                               className="quantity"
-                                                               value={this.state.quantity}
-                                                               onChange={this.changeQuantity}/>
-                                                    </span>
+                                                            <div style={{minWidth: '9rem'}}
+                                                                 className="def-number-input number-input safari_only mb-0 w-100">
+                                                                <button className="btnPlus plus"
+                                                                        onClick={(event) => this.changeQuantity("plus")}
+                                                                        disabled={item.quantity >= 10}>+
+                                                                </button>
+                                                                <input className="quantity" min="1"
+                                                                       name="quantity"
+                                                                       disabled
+                                                                       max="10"
+                                                                       value={this.state.quantity}
+                                                                       type="number"/>
+                                                                <button className="btnMinus minus"
+                                                                        onClick={(event) => this.changeQuantity("minus")}
+                                                                        disabled={item.quantity <= 1}>-
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </Modal.Body>

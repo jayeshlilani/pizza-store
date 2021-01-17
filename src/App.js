@@ -13,9 +13,11 @@ export default class App extends React.Component {
             cartItems: sessionStorage.getItem('cart') != null ? Object.keys(JSON.parse(sessionStorage.getItem('cart'))).length : ''
         };
         this.switchPage = this.switchPage.bind(this)
+        this.updateCartNumber = this.updateCartNumber.bind(this)
     }
 
     componentDidMount() {
+        console.log("a")
         fetch("https://run.mocky.io/v3/ec196a02-aaf4-4c91-8f54-21e72f241b68")
             .then(res => res.json())
             .then(
@@ -36,14 +38,17 @@ export default class App extends React.Component {
     }
 
     switchPage(page) {
-        console.log(page)
         this.setState({currentPage: page})
-        console.log(JSON.parse(sessionStorage.getItem('cart')))
+        this.updateCartNumber()
+    }
+
+    updateCartNumber(){
+        this.setState({cartItems:sessionStorage.getItem('cart') != null ? Object.keys(JSON.parse(sessionStorage.getItem('cart'))).length : ''})
     }
 
     render() {
         let cart = sessionStorage.getItem('cart') != null ? Object.keys(JSON.parse(sessionStorage.getItem('cart'))).length : ''
-        const {error, isLoaded, data} = this.state;
+        const {error, isLoaded, data,cartItems} = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -77,7 +82,7 @@ export default class App extends React.Component {
                                                     style={{background: 'none', border: 'none'}}>
                                                 {sessionStorage.getItem('cart') == null ? console.log() :
                                                     <span
-                                                        className="badge red z-depth-1 mr-1"> {cart} </span>
+                                                        className="badge red z-depth-1 mr-1"> {cartItems} </span>
                                                 }
                                                 <i className="fas fa-shopping-cart"/>
                                                 <span className="clearfix d-none d-sm-inline-block"> Cart </span>
@@ -91,7 +96,7 @@ export default class App extends React.Component {
                     {this.state.currentPage === 'home' ?
                         <div hidden={this.state.currentPage === 'cart'}>
                             {
-                                <FoodCard foodMenu={data}/>
+                                <FoodCard action={this.updateCartNumber} foodMenu={data}/>
                             }
                         </div> :
                         <div hidden={this.state.currentPage === 'home'}>

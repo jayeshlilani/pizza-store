@@ -7,16 +7,7 @@
     height: 0;
     padding-top: 56.25%;
 }
-/*expand: {*/
-/*transform: 'rotate(0deg)',*/
-/*marginLeft: 'auto',*/
-/*transition: theme.transitions.create('transform', {*/
-/*    duration: theme.transitions.duration.shortest,*/
-/*})*/
-/*}*/
-/*.expandOpen {*/
-/*    transform: 'rotate(180deg)',*/
-/*}*/
+
 .avatar {
     background-color: red;
 }
@@ -41,4 +32,28 @@ multiselectContainer{
     color: #fff;
     background-color: #4285f4 !important;
     padding: 6px 25px;
+}
+.number-input{
+    padding: 10px;
+}
+
+input[type=number]{
+    max-width: 3rem;
+    text-align: center;
+    padding: .4rem;
+    font-size: 1rem;
+    color: #495057;
+}
+.btnMinus, .btnPlus{
+    max-width: 3rem;
+    padding: .5rem;
+    border: 1px solid #ced4da;
+    border-width: 0 1px;
+    font-size: 1rem;
+    color: #495057;
+}
+
+.cardBody{
+    padding: 10px;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
 }
